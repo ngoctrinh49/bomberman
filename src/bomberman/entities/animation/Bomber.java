@@ -1,8 +1,12 @@
 package bomberman.entities.animation;
 
+import bomberman.BombermanGame;
 import bomberman.entities.GameScene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class Bomber extends DynamicObject {
     //khởi tạo khi add
@@ -10,6 +14,7 @@ public class Bomber extends DynamicObject {
         transition = Transition.RIGHT;
         images = new Image[4][];    //mảng lưu các hình ảnh khi di chuyển, ví dụ: LEFT sẽ có 3 ảnh để mượt hơn.
         isMoving = false;
+        speed = 5;
         for (Transition t : Transition.values()) {
             Image[] images1 = new Image[3];
             findTransition(images1, t);
@@ -75,13 +80,16 @@ public class Bomber extends DynamicObject {
 
     @Override
     public void update() {
+        KeyEvent event = BombermanGame.getInstance().getEvents().poll();
+        onKeyEvent(event);
         int currentDirection = transition.getDirection();
         int currentImage = indexOfFrame % images[transition.getDirection()].length;
         graphicsContext.drawImage(images[currentDirection][currentImage], x, y, width, height);
+
     }
 
-    @Override
-    public boolean testCollisions() {
-        return false;
+
+    public boolean checkCanMoveThrough(int x, int y) {
+        return super.checkCanMoveThrough(x, y);
     }
 }

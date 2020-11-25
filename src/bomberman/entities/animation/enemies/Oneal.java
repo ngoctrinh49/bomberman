@@ -2,14 +2,13 @@ package bomberman.entities.animation.enemies;
 
 import bomberman.entities.animation.Transition;
 import javafx.scene.image.Image;
-
 import java.util.Random;
 
 public class Oneal extends Enemy {
 
     public Oneal(int x_pixel, int y_pixel) {
         super(x_pixel, y_pixel);
-        this.speed = 1;
+        this.speed = 2;
         for (Transition t : Transition.values()) {
             Image[] images1 = new Image[3];
             findTransition(images1, t);
@@ -53,4 +52,5 @@ public class Oneal extends Enemy {
         }
         return Transition.DOWN;
     }
+
 }

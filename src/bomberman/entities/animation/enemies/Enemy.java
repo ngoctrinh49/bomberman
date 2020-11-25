@@ -28,20 +28,11 @@ public abstract class Enemy extends DynamicObject {
     public void update() {
         Transition new_transition = moveEnemy();
         if (new_transition != transition) {
-            indexOfFrame = 0;
             transition = new_transition;
         }
         move(transition);   //tạo chuyển động cho các enemy.
         int currentDirection = transition.getDirection();
         int currentImage = indexOfFrame % images[transition.getDirection()].length;
         graphicsContext.drawImage(images[currentDirection][currentImage], x, y, width, height);
-    }
-
-    /**
-     * pt kiểm tra va chạm.
-     */
-    @Override
-    public boolean testCollisions() {
-        return false;
     }
 }

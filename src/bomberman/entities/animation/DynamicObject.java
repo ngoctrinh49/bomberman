@@ -1,55 +1,97 @@
 package bomberman.entities.animation;
 
+import bomberman.BombermanGame;
 import bomberman.entities.GameObject;
+import bomberman.entities.GameScene;
+import bomberman.entities.ObjectManager;
+import bomberman.entities.unmoving.Brick;
+import bomberman.entities.unmoving.StaticObject;
+import bomberman.entities.unmoving.Wall;
 import javafx.scene.image.Image;
+
+import java.util.ArrayList;
 
 public abstract class DynamicObject extends GameObject {
     protected Transition transition = Transition.RIGHT;
-    protected int speed = 1;
+    protected int speed = 2;
     protected Image[][] images;
     protected boolean isMoving;
     protected int indexOfFrame = 0;
+    protected ObjectManager manager = BombermanGame.getInstance().getObjectManager();
+    protected boolean isLiving = true;
 
     public void move(Transition transition) {
-        if(transition == this.transition){
+        if (transition == this.transition) {
             indexOfFrame++;
         } else {
             indexOfFrame = 0;
             this.transition = transition;
         }
 
-        int addX = 0, addY = 0;
-        switch (transition){
+        int x_new = 0, y_new = 0;
+        switch (transition) {
             case UP:
-                addY = -1;
+                y_new = -speed;
                 break;
             case DOWN:
-                addY = 1;
+                y_new = speed;
                 break;
             case LEFT:
-                addX = -1;
+                x_new = -speed;
                 break;
             case RIGHT:
-                addX = 1;
+                x_new = speed;
                 break;
             default:
                 break;
         }
-        addX *= speed;
-        addY *= speed;
-        x += addX;
-        y += addY;
+        if (x_new == 0) {
+            x_new = findCoordinate(x);
+            //x_new = speed;
+            y_new += y;
+        } else {
+            y_new = findCoordinate(y);
+            //y_new = speed;
+            x_new += x;
+        }
+        isMoving = canMove(x_new, y_new);
+        //System.out.println(x_new + " " + y_new + " " + x + "," + y);
+        if (isMoving) {
+            //addX *= speed;
+            //addY *= speed;
+            //x += addX;
+            //y += addY;
+            x = x_new;
+            y = y_new;
+        }
     }
 
     public abstract void update();//dành cho đối tượng di chuyển
 
-    public abstract boolean testCollisions();
-
-    public boolean testCollisionsWithDynamicObject() {
-        return false;
-    }
-
     public boolean canMove(int new_x, int new_y) {
-        return testCollisionsWithDynamicObject();
+        return checkCanMoveThrough(new_x, new_y);
     }
+
+    /**
+     * pt kiểm tra đối tượng có di chuyển qua Wall được không.
+     */
+    public boolean checkCanMoveThrough(int x, int y) {
+        ArrayList<StaticObject> staticObjects = manager.getStaticObjectInRec(x, y, width - 1, height - 1);
+        for (int i = 0; i < staticObjects.size(); i++) {
+            StaticObject object = staticObjects.get(i);
+            if (object instanceof Wall || object instanceof Brick) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * update toa do moi.
+     */
+    private int findCoordinate(int center){
+        return (center + GameScene.SIZE / 2) / GameScene.SIZE * GameScene.SIZE;
+    }
+
+    //public abstract void kill();
 }

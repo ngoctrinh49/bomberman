@@ -9,6 +9,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BombermanGame {
     private int height;
     private int width;
@@ -16,6 +19,7 @@ public class BombermanGame {
     private GameScene gameScene;
     private ObjectManager objectManager;
     private MapLoader mapLoader;
+    private Queue<KeyEvent> events = new LinkedList<>();
 
     public BombermanGame() {
 
@@ -79,5 +83,16 @@ public class BombermanGame {
 
     public void update() {
         gameScene.update();
+    }
+
+    /**
+     * ql cac doi tuong
+     */
+    public ObjectManager getObjectManager() {
+        return objectManager;
+    }
+
+    public Queue<KeyEvent> getEvents() {
+        return events;
     }
 }

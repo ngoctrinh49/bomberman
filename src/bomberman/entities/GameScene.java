@@ -15,7 +15,7 @@ public class GameScene extends Canvas {
         getGraphicsContext2D().clearRect(0,0,getWidth(),getHeight());
         for (int i = 0; i < manager.getStaticObjects().length; i++) {
             for (int j = 0; j < manager.getStaticObjects()[i].length; j++) {
-                 manager.getStaticObjects()[i][j].render();     //render đối tượng tĩnh
+                 manager.getStaticObjects()[i][j].getLast().render();     //render đối tượng tĩnh
             }
         }
         for (int i = 0; i < manager.getDynamicObjects().size(); i++) {

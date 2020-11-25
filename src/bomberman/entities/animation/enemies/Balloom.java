@@ -2,7 +2,6 @@ package bomberman.entities.animation.enemies;
 
 import bomberman.entities.animation.Transition;
 import javafx.scene.image.Image;
-
 import java.util.Random;
 
 public class Balloom extends Enemy {

@@ -10,12 +10,12 @@ import java.util.ArrayList;
  * class quản lí các đối tượng game.
  */
 public class ObjectManager {
-    private StaticObject[][] staticObjects;
     private int height;
     private int width;
     //mảng lưu các đối tượng chuyển động.
     private ArrayList<DynamicObject> dynamicObjects = new ArrayList<>();
     private Bomber bomber;
+    private ObjectsStack[][] staticObjects;
 
     public ArrayList<DynamicObject> getDynamicObjects() {
         return dynamicObjects;
@@ -24,7 +24,7 @@ public class ObjectManager {
     public ObjectManager(int width, int height) {
         this.width = width;
         this.height = height;
-        staticObjects = new StaticObject[height][width];
+        staticObjects = new ObjectsStack[height][width];
     }
 
     public void addObject(GameObject object) {
@@ -36,15 +36,35 @@ public class ObjectManager {
             }
         } else {
             StaticObject so = (StaticObject) object;    // đối tượng tĩnh
-            staticObjects[so.getY_grid()][so.getX_grid()] = so;
+            //staticObjects[so.getY_grid()][so.getX_grid()] = so;
+            int x = so.getX_grid();
+            int y = so.getY_grid();
+            if (staticObjects[y][x] == null) {
+                staticObjects[y][x] = new ObjectsStack();
+            }
+            staticObjects[y][x].addStack(so);
         }
     }
 
-    public StaticObject[][] getStaticObjects() {
+    public ObjectsStack[][] getStaticObjects() {
         return staticObjects;
     }
 
     public Bomber getBomber() {
         return bomber;
+    }
+
+    public ArrayList<StaticObject> getStaticObjectInRec(int x, int y, int width, int height){
+        int x_left, x_right, y_up, y_down;
+        x_left = x / GameScene.SIZE;
+        x_right = (x + width) / GameScene.SIZE;
+        y_up = y / GameScene.SIZE;
+        y_down = (y + height) / GameScene.SIZE;
+        ArrayList<StaticObject> result = new ArrayList<>();
+        result.add(staticObjects[y_up][x_left].getLast());
+        result.add(staticObjects[y_down][x_left].getLast());
+        result.add(staticObjects[y_up][x_right].getLast());
+        result.add(staticObjects[y_down][x_right].getLast());
+        return result;
     }
 }
