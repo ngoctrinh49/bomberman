@@ -1,13 +1,18 @@
 package bomberman.entities.animation.enemies;
 
 import bomberman.entities.animation.Transition;
+import bomberman.entities.animation.enemies.ai.LowAI;
 import javafx.scene.image.Image;
 import java.util.Random;
+
+import static bomberman.entities.MapLoader.countEnemy;
 
 public class Balloom extends Enemy {
     public Balloom(int x_pixel, int y_pixel) {
         super(x_pixel, y_pixel);
         this.speed = 1;
+        ai = new LowAI();
+
         for (Transition t : Transition.values()) {
             Image[] images1 = new Image[3];
             findTransition(images1, t);
@@ -29,27 +34,10 @@ public class Balloom extends Enemy {
             image[0] = new Image(getClass().getResource("/sprites/balloom_dead.png").toExternalForm());
         }
     }
-
-
-    /**
-     * pt chuyển động của enemy.
-     */
     public Transition moveEnemy() {
         if (isMoving) {
             return transition;
         }
-        Random random = new Random();
-        int transition = random.nextInt(3);
-        switch (transition) {
-            case 0:
-                return Transition.LEFT;
-            case 1:
-                return Transition.RIGHT;
-            case 2:
-                return Transition.UP;
-            case 3:
-                return Transition.DOWN;
-        }
-        return Transition.DOWN;
+        return super.moveEnemy();
     }
 }

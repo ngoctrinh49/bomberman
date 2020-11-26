@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class MapLoader {
+    public static int countEnemy = 0;
     private char map[][];
     private int height;
     private int width;
@@ -20,6 +21,7 @@ public class MapLoader {
      * @param level level đang chơi
      */
     public void loadMap(int level) {
+
         Scanner scanner = null;
         try {
             scanner = new Scanner(new File(getClass().getResource("/levels/Level1.txt").getFile()));
@@ -53,27 +55,37 @@ public class MapLoader {
                         objectManager.addObject(new Grass(x, y));
                         break;
                     case 'x':
+                        objectManager.addObject(new Brick(x, y));
                         objectManager.addObject(new Portal(x, y));
                         break;
                     case 's':
+                        objectManager.addObject(new Brick(x, y));
                         objectManager.addObject(new SpeedItem(x, y));
+                        objectManager.addObject(new Grass(x,y));
                         break;
                     case 'f':
+                        objectManager.addObject(new Brick(x, y));
                         objectManager.addObject(new FlameItem(x, y));
+                        objectManager.addObject(new Grass(x,y));
                         break;
                     case 'b':
+                        objectManager.addObject(new Brick(x, y));
                         objectManager.addObject(new BombItem(x, y));
+                        objectManager.addObject(new Grass(x,y));
                         break;
                     case '*':
                         objectManager.addObject(new Brick(x, y));
+                        objectManager.addObject(new Grass(x,y));
                         break;
                     case '1':
                         objectManager.addObject(new Balloom(x * GameScene.SIZE, y * GameScene.SIZE));
                         objectManager.addObject(new Grass(x, y));
+                        countEnemy += 1;
                         break;
                     case '2':
-                        objectManager.addObject(new Oneal(x * GameScene.SIZE, y * GameScene.SIZE));
+                        objectManager.addObject(new Oneal(x * GameScene.SIZE, y * GameScene.SIZE, objectManager));
                         objectManager.addObject(new Grass(x, y));
+                        countEnemy += 1;
                         break;
                     default:
                         objectManager.addObject(new Grass(x,y));

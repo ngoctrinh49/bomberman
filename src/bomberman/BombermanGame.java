@@ -17,7 +17,7 @@ public class BombermanGame {
     private int width;
     protected static BombermanGame instance;
     private GameScene gameScene;
-    private ObjectManager objectManager;
+    public ObjectManager objectManager;
     private MapLoader mapLoader;
     private Queue<KeyEvent> events = new LinkedList<>();
 

@@ -1,14 +1,16 @@
 package bomberman.entities.animation.enemies;
 
+import bomberman.entities.ObjectManager;
 import bomberman.entities.animation.Transition;
+import bomberman.entities.animation.enemies.ai.MediumAI;
 import javafx.scene.image.Image;
-import java.util.Random;
 
 public class Oneal extends Enemy {
 
-    public Oneal(int x_pixel, int y_pixel) {
+    public Oneal(int x_pixel, int y_pixel, ObjectManager objectManager) {
         super(x_pixel, y_pixel);
-        this.speed = 2;
+        this.speed = 3;
+        ai = new MediumAI(objectManager.getBomber(), this);
         for (Transition t : Transition.values()) {
             Image[] images1 = new Image[3];
             findTransition(images1, t);
@@ -29,28 +31,6 @@ public class Oneal extends Enemy {
             image = new Image[1];
             image[0] = new Image(getClass().getResource("/sprites/oneal_dead.png").toExternalForm());
         }
-    }
-
-    /**
-     * pt chuyển động của enemy.
-     */
-    public Transition moveEnemy() {
-        if (isMoving) {
-            return transition;
-        }
-        Random random = new Random();
-        int transition = random.nextInt(3);
-        switch (transition) {
-            case 0:
-                return Transition.LEFT;
-            case 1:
-                return Transition.RIGHT;
-            case 2:
-                return Transition.UP;
-            case 3:
-                return Transition.DOWN;
-        }
-        return Transition.DOWN;
     }
 
 }
