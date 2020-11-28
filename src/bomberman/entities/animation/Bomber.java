@@ -2,8 +2,10 @@ package bomberman.entities.animation;
 
 import bomberman.BombermanGame;
 import bomberman.entities.GameScene;
+import bomberman.entities.animation.bomb.Bomb;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import bomberman.entities.animation.enemies.Enemy;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -56,7 +58,6 @@ public class Bomber extends DynamicObject {
      */
     public void onKeyEvent(KeyEvent event) {
         if (event == null) {
-            indexOfFrame = 0;
             return;
         }
         switch (event.getCode()) {
@@ -72,8 +73,8 @@ public class Bomber extends DynamicObject {
             case UP:
                 move(Transition.UP);
                 break;
-            default:
-                isMoving = false;
+            case SPACE:
+                placeBomb(x, y);
                 break;
         }
     }
@@ -81,6 +82,12 @@ public class Bomber extends DynamicObject {
     @Override
     public void update() {
         KeyEvent event = BombermanGame.getInstance().getEvents().poll();
+        if (!isLiving) {
+            BombermanGame.getInstance().endGame();
+        }
+        if (event == null) {
+            checkCanMoveThrough(x, y);
+        }
         onKeyEvent(event);
         int currentDirection = transition.getDirection();
         int currentImage = indexOfFrame % images[transition.getDirection()].length;
@@ -88,8 +95,31 @@ public class Bomber extends DynamicObject {
 
     }
 
-
     public boolean checkCanMoveThrough(int x, int y) {
         return super.checkCanMoveThrough(x, y);
+    }
+
+    public void kill() {
+        isLiving = false;
+    }
+
+    /**
+     *  pt kiểm tra bomber va chạm với enemy.
+     */
+    public boolean onActionCollideEnemy(DynamicObject dynamicObject) {
+        Rectangle2D bomber = new Rectangle(x, y, width, height);
+        Rectangle2D enemy = new Rectangle(dynamicObject.getX(), dynamicObject.getY(), dynamicObject.getWidth(), dynamicObject.getHeight());
+        if (((Rectangle) bomber).intersects(enemy)) {
+            if (dynamicObject instanceof Enemy) {
+                kill();
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void placeBomb(int x, int y) {
+        new Bomb((x + width / 2) / GameScene.SIZE, (y + height / 2) / GameScene.SIZE, 3);
     }
 }
