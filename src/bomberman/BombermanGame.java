@@ -17,12 +17,18 @@ public class BombermanGame {
     private int width;
     protected static BombermanGame instance;
     private GameScene gameScene;
-    public ObjectManager objectManager;
+    private ObjectManager objectManager;
     private MapLoader mapLoader;
     private Queue<KeyEvent> events = new LinkedList<>();
 
-    public BombermanGame() {
+    protected enum Status{
+        END, PLAYING, LOAD_LEVEL;
+    }
 
+    private Status status;
+
+    public BombermanGame() {
+        status = Status.PLAYING;
     }
 
     public int getHeight() {
@@ -82,7 +88,14 @@ public class BombermanGame {
     }
 
     public void update() {
-        gameScene.update();
+        switch (status) {
+            case END:
+                System.out.println("Game Over!");
+                break;
+            case PLAYING:
+                gameScene.update();
+                break;
+        }
     }
 
     /**
@@ -94,5 +107,9 @@ public class BombermanGame {
 
     public Queue<KeyEvent> getEvents() {
         return events;
+    }
+
+    public void endGame() {
+        status = Status.END;
     }
 }

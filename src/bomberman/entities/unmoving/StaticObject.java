@@ -1,7 +1,9 @@
 package bomberman.entities.unmoving;
 
+import bomberman.BombermanGame;
 import bomberman.entities.GameObject;
 import bomberman.entities.GameScene;
+import bomberman.entities.animation.bomb.Bomb;
 
 public abstract class StaticObject extends GameObject {
     protected int x_grid;
@@ -25,4 +27,11 @@ public abstract class StaticObject extends GameObject {
     }
 
     public abstract void render();//dành cho đối tượng tĩnh
+
+    /**
+     * pt xóa các đối tượng tĩnh.
+     */
+    public void deleteObject() {
+        BombermanGame.getInstance().getObjectManager().deleteObject(this);
+    }
 }

@@ -55,27 +55,28 @@ public class MapLoader {
                         objectManager.addObject(new Grass(x, y));
                         break;
                     case 'x':
-                        objectManager.addObject(new Brick(x, y));
+                        objectManager.addObject(new Grass(x, y));
                         objectManager.addObject(new Portal(x, y));
+                        objectManager.addObject(new Brick(x, y));
                         break;
                     case 's':
-                        objectManager.addObject(new Brick(x, y));
+                        objectManager.addObject(new Grass(x, y));
                         objectManager.addObject(new SpeedItem(x, y));
-                        objectManager.addObject(new Grass(x,y));
+                        objectManager.addObject(new Brick(x, y));
                         break;
                     case 'f':
-                        objectManager.addObject(new Brick(x, y));
+                        objectManager.addObject(new Grass(x, y));
                         objectManager.addObject(new FlameItem(x, y));
-                        objectManager.addObject(new Grass(x,y));
+                        objectManager.addObject(new Brick(x, y));
                         break;
                     case 'b':
-                        objectManager.addObject(new Brick(x, y));
+                        objectManager.addObject(new Grass(x, y));
                         objectManager.addObject(new BombItem(x, y));
-                        objectManager.addObject(new Grass(x,y));
+                        objectManager.addObject(new Brick(x, y));
                         break;
                     case '*':
+                        objectManager.addObject(new Grass(x, y));
                         objectManager.addObject(new Brick(x, y));
-                        objectManager.addObject(new Grass(x,y));
                         break;
                     case '1':
                         objectManager.addObject(new Balloom(x * GameScene.SIZE, y * GameScene.SIZE));

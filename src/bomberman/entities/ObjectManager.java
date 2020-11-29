@@ -54,6 +54,9 @@ public class ObjectManager {
         return bomber;
     }
 
+    /**
+     * tạo mảng lưu đối tượng để kiểm tra collection với static objects.
+     */
     public ArrayList<StaticObject> getStaticObjectInRec(int x, int y, int width, int height){
         int x_left, x_right, y_up, y_down;
         x_left = x / GameScene.SIZE;
@@ -66,5 +69,31 @@ public class ObjectManager {
         result.add(staticObjects[y_up][x_right].getLast());
         result.add(staticObjects[y_down][x_right].getLast());
         return result;
+    }
+
+    public StaticObject getChangeableObject(int x_grid, int y_grid) {
+        if (x_grid < 0 || y_grid < 0 || x_grid > width || y_grid > height) {
+            return null;
+        }
+        return staticObjects[y_grid][x_grid].getLast();
+    }
+
+    public void removeChangeableObject(int x_grid, int y_grid) {
+        staticObjects[y_grid][x_grid].removeLast();
+    }
+
+    /**
+     * pt xóa đối tuọng
+     */
+    public void deleteObject(GameObject object) {
+        if (object instanceof DynamicObject) {
+            dynamicObjects.remove(object);
+        }
+        if (object instanceof StaticObject) {
+            StaticObject object1 = (StaticObject) object;
+            int x = object1.getX_grid();
+            int y = object1.getY_grid();
+            staticObjects[y][x].delete(object1);
+        }
     }
 }

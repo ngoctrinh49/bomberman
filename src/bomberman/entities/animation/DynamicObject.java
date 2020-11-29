@@ -4,6 +4,8 @@ import bomberman.BombermanGame;
 import bomberman.entities.GameObject;
 import bomberman.entities.GameScene;
 import bomberman.entities.ObjectManager;
+import bomberman.entities.animation.bomb.Bomb;
+import bomberman.entities.animation.bomb.Flame;
 import bomberman.entities.unmoving.Brick;
 import bomberman.entities.unmoving.StaticObject;
 import bomberman.entities.unmoving.Wall;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 
 public abstract class DynamicObject extends GameObject {
     protected Transition transition = Transition.RIGHT;
-    protected int speed = 2;
+    protected int speed = 1;
     protected Image[][] images;
     protected boolean isMoving;
     protected int indexOfFrame = 0;
@@ -47,20 +49,13 @@ public abstract class DynamicObject extends GameObject {
         }
         if (x_new == 0) {
             x_new = findCoordinate(x);
-            //x_new = speed;
             y_new += y;
         } else {
             y_new = findCoordinate(y);
-            //y_new = speed;
             x_new += x;
         }
         isMoving = canMove(x_new, y_new);
-        //System.out.println(x_new + " " + y_new + " " + x + "," + y);
         if (isMoving) {
-            //addX *= speed;
-            //addY *= speed;
-            //x += addX;
-            //y += addY;
             x = x_new;
             y = y_new;
         }
@@ -72,15 +67,26 @@ public abstract class DynamicObject extends GameObject {
         return checkCanMoveThrough(new_x, new_y);
     }
 
+    public abstract void kill();
     /**
      * pt kiểm tra đối tượng có di chuyển qua Wall được không.
      */
     public boolean checkCanMoveThrough(int x, int y) {
-        ArrayList<StaticObject> staticObjects = manager.getStaticObjectInRec(x, y, width - 1, height - 1);
+        ArrayList<StaticObject> staticObjects = manager.getStaticObjectInRec(x, y, width -1, height -1);
         for (int i = 0; i < staticObjects.size(); i++) {
             StaticObject object = staticObjects.get(i);
             if (object instanceof Wall || object instanceof Brick) {
                 return false;
+            }
+            if (object instanceof Flame) {
+                kill();
+                return true;    //enermy bị giết thì có thể đi qua.
+            }
+            if (object instanceof Bomb) {   //nếu bomber đứng chính giữa bom nổ
+                if (((Bomb) object).isExploded()) {
+                    kill();
+                    return true;
+                }
             }
         }
         return true;
@@ -93,5 +99,6 @@ public abstract class DynamicObject extends GameObject {
         return (center + GameScene.SIZE / 2) / GameScene.SIZE * GameScene.SIZE;
     }
 
-    //public abstract void kill();
+    public abstract boolean onActionCollideEnemy(DynamicObject dynamicObject);
+
 }

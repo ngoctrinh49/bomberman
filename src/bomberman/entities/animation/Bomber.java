@@ -2,7 +2,7 @@ package bomberman.entities.animation;
 
 import bomberman.BombermanGame;
 import bomberman.entities.GameScene;
-//import bomberman.entities.animation.bomb.Bomb;
+import bomberman.entities.animation.bomb.Bomb;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import bomberman.entities.animation.enemies.Enemy;
@@ -74,7 +74,7 @@ public class Bomber extends DynamicObject {
                 move(Transition.UP);
                 break;
             case SPACE:
-//                placeBomb(x, y);
+                placeBomb(x, y);
                 break;
         }
     }
@@ -82,17 +82,16 @@ public class Bomber extends DynamicObject {
     @Override
     public void update() {
         KeyEvent event = BombermanGame.getInstance().getEvents().poll();
-//        if (!isLiving) {
-//            BombermanGame.getInstance().endGame();
-//        }
+        if (!isLiving) {
+            BombermanGame.getInstance().endGame();
+        }
         if (event == null) {
             checkCanMoveThrough(x, y);
         }
         onKeyEvent(event);
         int currentDirection = transition.getDirection();
-        int currentImage = indexOfFrame % (images[transition.getDirection()].length * 3) / 3;
+        int currentImage = indexOfFrame % images[transition.getDirection()].length;
         graphicsContext.drawImage(images[currentDirection][currentImage], x, y, width, height);
-
     }
 
     public boolean checkCanMoveThrough(int x, int y) {
@@ -119,7 +118,7 @@ public class Bomber extends DynamicObject {
         }
     }
 
-//    public void placeBomb(int x, int y) {
-//        new Bomb((x + width / 2) / GameScene.SIZE, (y + height / 2) / GameScene.SIZE, 3);
-//    }
+    public void placeBomb(int x, int y) {
+        new Bomb((x + width / 2) / GameScene.SIZE, (y + height / 2) / GameScene.SIZE, 1);
+    }
 }
