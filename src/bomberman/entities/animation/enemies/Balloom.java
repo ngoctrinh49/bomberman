@@ -1,5 +1,6 @@
 package bomberman.entities.animation.enemies;
 
+import bomberman.entities.animation.DynamicObject;
 import bomberman.entities.animation.Transition;
 import bomberman.entities.animation.enemies.ai.LowAI;
 import javafx.scene.image.Image;
@@ -15,20 +16,22 @@ public class Balloom extends Enemy {
             findTransition(images1, t);
             images[t.getDirection()] = images1;
         }
+        Image[] dieOfBalloom = new Image[1];
+        dieOfBalloom[0] = getFxImage("/sprites/balloom_dead.png");
+        images[4] = dieOfBalloom;
     }
 
     public void findTransition(Image[] image, Transition t) {
-        if (t == Transition.UP || t == Transition.RIGHT) {
-            image[0] = getFxImage("/sprites/balloom_right1.png");
-            image[1] = getFxImage("/sprites/balloom_right2.png");
-            image[2] = getFxImage("/sprites/balloom_right3.png");
-        } else if (t == Transition.DOWN || t == Transition.LEFT) {
-            image[0] = getFxImage("/sprites/balloom_left1.png");
-            image[1] = getFxImage("/sprites/balloom_left2.png");
-            image[2] = getFxImage("/sprites/balloom_left3.png");
-        } else {
-            image = new Image[1];
-            image[0] = getFxImage("/sprites/balloom_dead.png");
+        if (isLiving) {
+            if (t == Transition.UP || t == Transition.RIGHT) {
+                image[0] = getFxImage("/sprites/balloom_right1.png");
+                image[1] = getFxImage("/sprites/balloom_right2.png");
+                image[2] = getFxImage("/sprites/balloom_right3.png");
+            } else if (t == Transition.DOWN || t == Transition.LEFT) {
+                image[0] = getFxImage("/sprites/balloom_left1.png");
+                image[1] = getFxImage("/sprites/balloom_left2.png");
+                image[2] = getFxImage("/sprites/balloom_left3.png");
+            }
         }
     }
     public Transition moveEnemy() {
@@ -36,5 +39,10 @@ public class Balloom extends Enemy {
             return transition;
         }
         return super.moveEnemy();
+    }
+
+    @Override
+    public boolean onActionCollideEnemy(DynamicObject dynamicObject) {
+        return false;
     }
 }

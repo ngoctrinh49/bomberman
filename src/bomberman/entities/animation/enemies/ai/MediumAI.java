@@ -3,7 +3,7 @@ package bomberman.entities.animation.enemies.ai;
 import bomberman.entities.animation.Bomber;
 import bomberman.entities.animation.enemies.Enemy;
 
-public class MediumAI extends AI{
+public class MediumAI extends AI {
 
     Bomber bomber;
     Enemy e;

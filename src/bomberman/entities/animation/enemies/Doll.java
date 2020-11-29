@@ -1,8 +1,9 @@
 package bomberman.entities.animation.enemies;
 
+import bomberman.entities.animation.DynamicObject;
 import bomberman.entities.animation.Transition;
 
-public class Doll extends Enemy{
+public class Doll extends Enemy {
     public Doll(int x_pixel, int y_pixel) {
         super(x_pixel, y_pixel);
     }
@@ -10,5 +11,10 @@ public class Doll extends Enemy{
     @Override
     public Transition moveEnemy() {
         return null;
+    }
+
+    @Override
+    public boolean onActionCollideEnemy(DynamicObject dynamicObject) {
+        return false;
     }
 }
