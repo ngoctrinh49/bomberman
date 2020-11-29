@@ -18,18 +18,18 @@ public class Oneal extends Enemy {
         }
     }
 
-    public void findTransition(Image[] image, Transition t) {
+    public void findTransition(Image[] image, Transition t) { ;
         if (t == Transition.UP || t == Transition.RIGHT) {
-            image[0] = new Image(getClass().getResource("/sprites/oneal_right1.png").toExternalForm());
-            image[1] = new Image(getClass().getResource("/sprites/oneal_right2.png").toExternalForm());
-            image[2] = new Image(getClass().getResource("/sprites/oneal_right3.png").toExternalForm());
+            image[0] = getFxImage("/sprites/oneal_right1.png");
+            image[1] = getFxImage("/sprites/oneal_right2.png");
+            image[2] = getFxImage("/sprites/oneal_right3.png");
         } else if (t == Transition.DOWN || t == Transition.LEFT) {
-            image[0] = new Image(getClass().getResource("/sprites/oneal_left1.png").toExternalForm());
-            image[1] = new Image(getClass().getResource("/sprites/oneal_left2.png").toExternalForm());
-            image[2] = new Image(getClass().getResource("/sprites/oneal_left3.png").toExternalForm());
+            image[0] = getFxImage("/sprites/oneal_left1.png");
+            image[1] = getFxImage("/sprites/oneal_left2.png");
+            image[2] = getFxImage("/sprites/oneal_left3.png");
         } else {
             image = new Image[1];
-            image[0] = new Image(getClass().getResource("/sprites/oneal_dead.png").toExternalForm());
+            image[0] = getFxImage("/sprites/oneal_dead.png");
         }
     }
 

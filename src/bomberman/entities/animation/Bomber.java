@@ -2,7 +2,7 @@ package bomberman.entities.animation;
 
 import bomberman.BombermanGame;
 import bomberman.entities.GameScene;
-import bomberman.entities.animation.bomb.Bomb;
+//import bomberman.entities.animation.bomb.Bomb;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import bomberman.entities.animation.enemies.Enemy;
@@ -33,23 +33,23 @@ public class Bomber extends DynamicObject {
      */
     public void findTransition(Image [] image, Transition t) {
         //for (Transition t : Transition.values()) {
-            if (t == Transition.UP) {
-                image[0] = new Image(getClass().getResource("/sprites/player_up.png").toExternalForm());
-                image[1] = new Image(getClass().getResource("/sprites/player_up_1.png").toExternalForm());
-                image[2] = new Image(getClass().getResource("/sprites/player_up_2.png").toExternalForm());
-            } else if (t == Transition.LEFT) {
-                image[0] = new Image(getClass().getResource("/sprites/player_left.png").toExternalForm());
-                image[1] = new Image(getClass().getResource("/sprites/player_left_1.png").toExternalForm());
-                image[2] = new Image(getClass().getResource("/sprites/player_left_2.png").toExternalForm());
-            } else if (t == Transition.DOWN) {
-                image[0] = new Image(getClass().getResource("/sprites/player_down.png").toExternalForm());
-                image[1] = new Image(getClass().getResource("/sprites/player_down_1.png").toExternalForm());
-                image[2] = new Image(getClass().getResource("/sprites/player_down_2.png").toExternalForm());
-            } else {
-                image[0] = new Image(getClass().getResource("/sprites/player_right.png").toExternalForm());
-                image[1] = new Image(getClass().getResource("/sprites/player_right_1.png").toExternalForm());
-                image[2] = new Image(getClass().getResource("/sprites/player_right_2.png").toExternalForm());
-            }
+        if (t == Transition.UP) {
+            image[0] = getFxImage("/sprites/player_up.png");
+            image[1] = getFxImage("/sprites/player_up_1.png");
+            image[2] = getFxImage("/sprites/player_up_2.png");
+        } else if (t == Transition.LEFT) {
+            image[0] = getFxImage("/sprites/player_left.png");
+            image[1] = getFxImage("/sprites/player_left_1.png");
+            image[2] = getFxImage("/sprites/player_left_2.png");
+        } else if (t == Transition.DOWN) {
+            image[0] = getFxImage("/sprites/player_down.png");
+            image[1] = getFxImage("/sprites/player_down_1.png");
+            image[2] = getFxImage("/sprites/player_down_2.png");
+        } else {
+            image[0] = getFxImage("/sprites/player_right.png");
+            image[1] = getFxImage("/sprites/player_right_1.png");
+            image[2] = getFxImage("/sprites/player_right_2.png");
+        }
         //}
     }
 
@@ -74,7 +74,7 @@ public class Bomber extends DynamicObject {
                 move(Transition.UP);
                 break;
             case SPACE:
-                placeBomb(x, y);
+//                placeBomb(x, y);
                 break;
         }
     }
@@ -82,15 +82,15 @@ public class Bomber extends DynamicObject {
     @Override
     public void update() {
         KeyEvent event = BombermanGame.getInstance().getEvents().poll();
-        if (!isLiving) {
-            BombermanGame.getInstance().endGame();
-        }
+//        if (!isLiving) {
+//            BombermanGame.getInstance().endGame();
+//        }
         if (event == null) {
             checkCanMoveThrough(x, y);
         }
         onKeyEvent(event);
         int currentDirection = transition.getDirection();
-        int currentImage = indexOfFrame % images[transition.getDirection()].length;
+        int currentImage = indexOfFrame % (images[transition.getDirection()].length * 3) / 3;
         graphicsContext.drawImage(images[currentDirection][currentImage], x, y, width, height);
 
     }
@@ -119,7 +119,7 @@ public class Bomber extends DynamicObject {
         }
     }
 
-    public void placeBomb(int x, int y) {
-        new Bomb((x + width / 2) / GameScene.SIZE, (y + height / 2) / GameScene.SIZE, 3);
-    }
+//    public void placeBomb(int x, int y) {
+//        new Bomb((x + width / 2) / GameScene.SIZE, (y + height / 2) / GameScene.SIZE, 3);
+//    }
 }

@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
  * đá có thể phá hủy.
  */
 public class Brick extends StaticObject {
-    private static Image image = new Image(Brick.class.getResource("/sprites/brick.png").toExternalForm());
+    private Image image = getFxImage("/sprites/brick.png");
 
     public Brick(int x_grid, int y_grid) {
         super(x_grid, y_grid);

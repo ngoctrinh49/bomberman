@@ -32,7 +32,7 @@ public abstract class Enemy extends DynamicObject {
         }
         move(transition);   //tạo chuyển động cho các enemy.
         int currentDirection = transition.getDirection();
-        int currentImage = indexOfFrame % images[transition.getDirection()].length;
+        int currentImage = indexOfFrame % (images[transition.getDirection()].length * 3) / 3;
         graphicsContext.drawImage(images[currentDirection][currentImage], x, y, width, height);
     }
     public Transition moveEnemy() {

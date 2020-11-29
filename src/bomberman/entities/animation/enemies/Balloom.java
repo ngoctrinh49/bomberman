@@ -3,9 +3,6 @@ package bomberman.entities.animation.enemies;
 import bomberman.entities.animation.Transition;
 import bomberman.entities.animation.enemies.ai.LowAI;
 import javafx.scene.image.Image;
-import java.util.Random;
-
-import static bomberman.entities.MapLoader.countEnemy;
 
 public class Balloom extends Enemy {
     public Balloom(int x_pixel, int y_pixel) {
@@ -22,16 +19,16 @@ public class Balloom extends Enemy {
 
     public void findTransition(Image[] image, Transition t) {
         if (t == Transition.UP || t == Transition.RIGHT) {
-            image[0] = new Image(getClass().getResource("/sprites/balloom_right1.png").toExternalForm());
-            image[1] = new Image(getClass().getResource("/sprites/balloom_right2.png").toExternalForm());
-            image[2] = new Image(getClass().getResource("/sprites/balloom_right3.png").toExternalForm());
+            image[0] = getFxImage("/sprites/balloom_right1.png");
+            image[1] = getFxImage("/sprites/balloom_right2.png");
+            image[2] = getFxImage("/sprites/balloom_right3.png");
         } else if (t == Transition.DOWN || t == Transition.LEFT) {
-            image[0] = new Image(getClass().getResource("/sprites/balloom_left1.png").toExternalForm());
-            image[1] = new Image(getClass().getResource("/sprites/balloom_left2.png").toExternalForm());
-            image[2] = new Image(getClass().getResource("/sprites/balloom_left3.png").toExternalForm());
+            image[0] = getFxImage("/sprites/balloom_left1.png");
+            image[1] = getFxImage("/sprites/balloom_left2.png");
+            image[2] = getFxImage("/sprites/balloom_left3.png");
         } else {
             image = new Image[1];
-            image[0] = new Image(getClass().getResource("/sprites/balloom_dead.png").toExternalForm());
+            image[0] = getFxImage("/sprites/balloom_dead.png");
         }
     }
     public Transition moveEnemy() {
