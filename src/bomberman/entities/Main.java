@@ -14,9 +14,13 @@ public class Main extends Application {
         bombermanGame.start(primaryStage);
         primaryStage.show();
         new AnimationTimer() {
+            private long last = 0 ;
             @Override
             public void handle(long now) {
-                bombermanGame.update();
+                if(now - last >= 40000000) {    //chỉnh tốc độ load game
+                    bombermanGame.update();
+                    last = now;
+                }
             }
         }.start();
     }
