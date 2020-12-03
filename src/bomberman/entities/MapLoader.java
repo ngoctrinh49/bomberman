@@ -2,8 +2,7 @@ package bomberman.entities;
 
 import bomberman.BombermanGame;
 import bomberman.entities.animation.Bomber;
-import bomberman.entities.animation.enemies.Balloom;
-import bomberman.entities.animation.enemies.Oneal;
+import bomberman.entities.animation.enemies.*;
 import bomberman.entities.unmoving.*;
 
 import java.io.File;
@@ -84,7 +83,22 @@ public class MapLoader {
                         countEnemy += 1;
                         break;
                     case '2':
-                        objectManager.addObject(new Oneal(x * GameScene.SIZE, y * GameScene.SIZE, objectManager));
+                        objectManager.addObject(new Oneal(x * GameScene.SIZE, y * GameScene.SIZE));
+                        objectManager.addObject(new Grass(x, y));
+                        countEnemy += 1;
+                        break;
+                    case '3':
+                        objectManager.addObject(new Kondoria(x * GameScene.SIZE, y * GameScene.SIZE));
+                        objectManager.addObject(new Grass(x, y));
+                        countEnemy += 1;
+                        break;
+                    case '4':
+                        objectManager.addObject(new Doll(x * GameScene.SIZE, y * GameScene.SIZE));
+                        objectManager.addObject(new Grass(x, y));
+                        countEnemy += 1;
+                        break;
+                    case '5':
+                        objectManager.addObject(new Minvo(x * GameScene.SIZE, y * GameScene.SIZE));
                         objectManager.addObject(new Grass(x, y));
                         countEnemy += 1;
                         break;

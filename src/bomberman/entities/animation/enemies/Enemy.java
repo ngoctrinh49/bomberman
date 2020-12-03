@@ -2,17 +2,10 @@ package bomberman.entities.animation.enemies;
 
 import bomberman.BombermanGame;
 import bomberman.entities.GameScene;
-import bomberman.entities.animation.Bomber;
 import bomberman.entities.animation.DynamicObject;
 import bomberman.entities.animation.Transition;
-import bomberman.entities.animation.bomb.Bomb;
-import bomberman.entities.animation.bomb.ChangeableObject;
-import bomberman.entities.animation.bomb.Flame;
 import bomberman.entities.animation.enemies.ai.AI;
 import javafx.scene.image.Image;
-
-import java.awt.geom.Rectangle2D;
-import java.awt.*;
 
 public abstract class Enemy extends DynamicObject {
     private final int SPEED = 1;
@@ -30,6 +23,10 @@ public abstract class Enemy extends DynamicObject {
         isLiving = true;
     }
 
+    public boolean getIsMoving(){
+        return isMoving;
+    }
+
     /**
      * pt render ảnh động cho các enemy.
      */
@@ -45,8 +42,11 @@ public abstract class Enemy extends DynamicObject {
             BombermanGame.getInstance().getObjectManager().deleteObject(this);      //xóa enemy sau khi chết.
         } else {
             move(transition);   //tạo chuyển động cho các enemy.
-            int currentDirection = transition.getDirection();
-            int currentImage = indexOfFrame % images[transition.getDirection()].length;
+            int currentDirection = 0;
+            if (isMoving) {
+                currentDirection = transition.getDirection();
+            }
+            int currentImage = indexOfFrame % (images[transition.getDirection()].length * 4) / 4;
             graphicsContext.drawImage(images[currentDirection][currentImage], x, y, width, height);
         }
     }
@@ -64,6 +64,51 @@ public abstract class Enemy extends DynamicObject {
                 return Transition.DOWN;
         }
         return Transition.UP;
+    }
+
+    @Override
+    public void move(Transition transition) {
+        if(isMoving) {
+            if (transition == this.transition) {
+                indexOfFrame++;
+            } else {
+                indexOfFrame = 0;
+                this.transition = transition;
+            }
+        }
+        int x_new = 0, y_new = 0;
+        switch (transition) {
+            case UP:
+                y_new = -speed;
+                break;
+            case DOWN:
+                y_new = speed;
+                break;
+            case LEFT:
+                x_new = -speed;
+                break;
+            case RIGHT:
+                x_new = speed;
+                break;
+            default:
+                break;
+        }
+        if (x_new == 0) {
+            if (x == findCoordinate(x)) {
+                x_new = findCoordinate(x);
+                y_new += y;
+            }
+        } else {
+            if (y == findCoordinate(y)) {
+                y_new = findCoordinate(y);
+                x_new += x;
+            }
+        }
+        isMoving = canMove(x_new, y_new);
+        if (isMoving) {
+            x = x_new;
+            y = y_new;
+        }
     }
 
     public void kill() {

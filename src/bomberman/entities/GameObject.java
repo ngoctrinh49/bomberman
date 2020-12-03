@@ -65,7 +65,7 @@ public abstract class GameObject {
     }
 
     private void setPixel(String path)  {
-        pixels = new int[32 * 32];
+        pixels = new int[16 * 16];
         try {
             URL a = GameObject.class.getResource(path);
             BufferedImage image = ImageIO.read(a);

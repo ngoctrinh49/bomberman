@@ -95,7 +95,7 @@ public abstract class DynamicObject extends GameObject {
     /**
      * update toa do moi.
      */
-    private int findCoordinate(int center){
+    public int findCoordinate(int center){
         return (center + GameScene.SIZE / 2) / GameScene.SIZE * GameScene.SIZE;
     }
 

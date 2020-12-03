@@ -36,11 +36,11 @@ public class Bomb extends ChangeableObject {
             explode();
         }
         if (isExploded) {
-            graphicsContext.drawImage(images[1][indexOfFrame % 3], x, y, width, height);
+            graphicsContext.drawImage(images[1][(indexOfFrame % 12) / 4], x, y, width, height);
         } else {
-            graphicsContext.drawImage(images[0][indexOfFrame % 3], x, y, width, height);
+            graphicsContext.drawImage(images[0][(indexOfFrame % 12) / 4], x, y, width, height);
         }
-        if (isExploded && indexOfFrame >= 2) {
+        if (isExploded && indexOfFrame >= 6) {
             BombermanGame.getInstance().getObjectManager().deleteObject(this);  // xóa hình ảnh nổ trung tâm
         }
     }

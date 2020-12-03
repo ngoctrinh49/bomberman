@@ -1,5 +1,6 @@
 package bomberman.entities.animation.enemies;
 
+import bomberman.entities.GameScene;
 import bomberman.entities.animation.DynamicObject;
 import bomberman.entities.animation.Transition;
 import bomberman.entities.animation.enemies.ai.LowAI;
@@ -35,7 +36,7 @@ public class Balloom extends Enemy {
         }
     }
     public Transition moveEnemy() {
-        if (isMoving) {
+        if ((this.getX() % GameScene.SIZE != 0) || (this.getY() % GameScene.SIZE != 0)) {
             return transition;
         }
         return super.moveEnemy();
