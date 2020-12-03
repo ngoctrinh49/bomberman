@@ -3,9 +3,9 @@ package bomberman.entities.animation;
 import bomberman.BombermanGame;
 import bomberman.entities.GameScene;
 import bomberman.entities.animation.bomb.Bomb;
+import bomberman.entities.animation.enemies.Enemy;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import bomberman.entities.animation.enemies.Enemy;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -16,7 +16,7 @@ public class Bomber extends DynamicObject {
         transition = Transition.RIGHT;
         images = new Image[4][];    //mảng lưu các hình ảnh khi di chuyển, ví dụ: LEFT sẽ có 3 ảnh để mượt hơn.
         isMoving = false;
-        speed = 5;
+        speed = 4;
         for (Transition t : Transition.values()) {
             Image[] images1 = new Image[3];
             findTransition(images1, t);
@@ -90,7 +90,7 @@ public class Bomber extends DynamicObject {
         }
         onKeyEvent(event);
         int currentDirection = transition.getDirection();
-        int currentImage = indexOfFrame % images[transition.getDirection()].length;
+        int currentImage = indexOfFrame % (images[transition.getDirection()].length * 4) / 4;
         graphicsContext.drawImage(images[currentDirection][currentImage], x, y, width, height);
     }
 
@@ -110,7 +110,7 @@ public class Bomber extends DynamicObject {
         Rectangle2D enemy = new Rectangle(dynamicObject.getX(), dynamicObject.getY(), dynamicObject.getWidth(), dynamicObject.getHeight());
         if (((Rectangle) bomber).intersects(enemy)) {
             if (dynamicObject instanceof Enemy) {
-                kill();
+                //kill();
             }
             return true;
         } else {

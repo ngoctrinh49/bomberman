@@ -17,7 +17,7 @@ public class BombermanGame {
     private int width;
     protected static BombermanGame instance;
     private GameScene gameScene;
-    private ObjectManager objectManager;
+    public static ObjectManager objectManager;
     private MapLoader mapLoader;
     private Queue<KeyEvent> events = new LinkedList<>();
 
@@ -61,7 +61,7 @@ public class BombermanGame {
     public void start(Stage primaryStage) {
         mapLoader = new MapLoader();
         mapLoader.loadMap(1);
-        GameScene.SIZE = 40;
+        GameScene.SIZE = 36;
         objectManager = new ObjectManager(width, height);
         gameScene = new GameScene(objectManager, width, height);
         mapLoader.loadObject(objectManager);
