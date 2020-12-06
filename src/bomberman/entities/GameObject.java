@@ -3,7 +3,6 @@ package bomberman.entities;
 import bomberman.BombermanGame;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -15,6 +14,22 @@ public abstract class GameObject {
     protected int height;
     protected int width;
     protected GraphicsContext graphicsContext = BombermanGame.getInstance().getScene().getGraphicsContext2D();
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 
     private static final int TRANSPARENT_COLOR = 0xffff00ff;
     public int[] pixels;
@@ -65,7 +80,7 @@ public abstract class GameObject {
     }
 
     private void setPixel(String path)  {
-        pixels = new int[16 * 16];
+        pixels = new int[32 * 32];
         try {
             URL a = GameObject.class.getResource(path);
             BufferedImage image = ImageIO.read(a);
@@ -76,21 +91,5 @@ public abstract class GameObject {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 }

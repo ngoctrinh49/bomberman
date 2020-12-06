@@ -2,6 +2,7 @@ package bomberman.entities.animation.enemies;
 
 import bomberman.BombermanGame;
 import bomberman.entities.GameScene;
+import bomberman.entities.ObjectManager;
 import bomberman.entities.animation.DynamicObject;
 import bomberman.entities.animation.Transition;
 import bomberman.entities.animation.enemies.ai.AI;
@@ -112,6 +113,9 @@ public abstract class Enemy extends DynamicObject {
     }
 
     public void kill() {
+        int numberOfEnemy = BombermanGame.getInstance().getObjectManager().getNumberOfEnemy();
+        numberOfEnemy--;
+        BombermanGame.getInstance().getObjectManager().setNumberOfEnemy(numberOfEnemy);
         isLiving = false;
     }
 }

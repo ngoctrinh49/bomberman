@@ -2,16 +2,17 @@ package bomberman.entities.animation.bomb;
 
 import bomberman.BombermanGame;
 import bomberman.entities.ObjectManager;
+import bomberman.entities.animation.Bomber;
 import bomberman.entities.unmoving.Wall;
+import bomberman.music.Player;
 import javafx.scene.image.Image;
 
 public class Bomb extends ChangeableObject {
     private static final int TIME = 2000;
     private boolean isExploded = false;
-    private int level;  //muc do no cua bom
+    private int level;
     private int indexOfFrame = 0;
     private long timeToExploded;
-    //ObjectManager manager = BombermanGame.getInstance().getObjectManager();
 
     public Bomb(int x, int y, int level) {
         super(x, y);
@@ -34,18 +35,23 @@ public class Bomb extends ChangeableObject {
             isExploded = true;
             indexOfFrame = 0;
             explode();
+            Bomber.currentNumberOfBomb--;
+        }
+        if (isExploded) {
+            Player.playMusic(Player.bombExplode);
         }
         if (isExploded) {
             graphicsContext.drawImage(images[1][(indexOfFrame % 12) / 4], x, y, width, height);
         } else {
             graphicsContext.drawImage(images[0][(indexOfFrame % 12) / 4], x, y, width, height);
         }
-        if (isExploded && indexOfFrame >= 6) {
+        if (isExploded && indexOfFrame >= 4) {
             BombermanGame.getInstance().getObjectManager().deleteObject(this);  // xóa hình ảnh nổ trung tâm
         }
     }
 
     public void explode() {
+        System.out.println("current:" + Bomber.currentNumberOfBomb + "\n" + "max:" + Bomber.maxNumberOfBomb + "\n");
         ObjectManager manager = BombermanGame.getInstance().getObjectManager();
         for (int i = x_grid + 1; i <= x_grid + level; i++){
             if(manager.getChangeableObject(i, y_grid) instanceof Wall) {

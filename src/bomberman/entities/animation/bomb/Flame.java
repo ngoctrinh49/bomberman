@@ -2,6 +2,7 @@ package bomberman.entities.animation.bomb;
 
 import bomberman.BombermanGame;
 import bomberman.entities.ObjectManager;
+import bomberman.entities.animation.Bomber;
 import bomberman.entities.unmoving.Grass;
 import javafx.scene.image.Image;
 
@@ -50,10 +51,10 @@ public class Flame extends ChangeableObject {
 
     @Override
     public void render() {
-        if (indexOfFrame >= 9) {
+        if (indexOfFrame >= 3) {
             BombermanGame.getInstance().getObjectManager().deleteObject(this);  //xoa flame
         } else {
-            graphicsContext.drawImage(imageOfLevel[indexOfFrame/3], x, y, width, height);
+            graphicsContext.drawImage(imageOfLevel[indexOfFrame], x, y, width, height);
             indexOfFrame++;
         }
     }

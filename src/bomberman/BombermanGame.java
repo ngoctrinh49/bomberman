@@ -3,8 +3,10 @@ package bomberman;
 import bomberman.entities.MapLoader;
 import bomberman.entities.ObjectManager;
 import bomberman.entities.GameScene;
+import bomberman.music.Player;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -20,6 +22,7 @@ public class BombermanGame {
     public static ObjectManager objectManager;
     private MapLoader mapLoader;
     private Queue<KeyEvent> events = new LinkedList<>();
+    private int level = 1;
 
     protected enum Status{
         END, PLAYING, LOAD_LEVEL;
@@ -65,19 +68,15 @@ public class BombermanGame {
         objectManager = new ObjectManager(width, height);
         gameScene = new GameScene(objectManager, width, height);
         mapLoader.loadObject(objectManager);
-
+        loadMusicOfGame();
         gameScene.setFocusTraversable(true);
+
         gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                objectManager.getBomber().onKeyEvent(event);
-            }
-        });
-
-        gameScene.setOnKeyReleased(new EventHandler<KeyEvent>() {   //di chuyển xong thì trở về ban đầu
-            @Override
-            public void handle(KeyEvent event) {
-                objectManager.getBomber().onKeyEvent(null);
+                if (events.isEmpty()) {
+                    events.add(event);
+                }
             }
         });
 
@@ -90,10 +89,21 @@ public class BombermanGame {
     public void update() {
         switch (status) {
             case END:
-                System.out.println("Game Over!");
+                gameScene.alert("Game Over!");
+                if(!events.isEmpty()  && events.poll().getCode() == KeyCode.ENTER){
+                    refresh();
+                    status = Status.PLAYING;
+                }
                 break;
             case PLAYING:
                 gameScene.update();
+                break;
+            case LOAD_LEVEL:
+                gameScene.alert("Level " + level);
+                if(!events.isEmpty()  && events.poll().getCode() == KeyCode.ENTER){
+                    events = new LinkedList<>();
+                    status = Status.PLAYING;
+                }
                 break;
         }
     }
@@ -111,5 +121,25 @@ public class BombermanGame {
 
     public void endGame() {
         status = Status.END;
+    }
+
+    public void loadLevel() {
+        level++;
+        mapLoader.loadMap(level);
+        mapLoader.loadObject(objectManager);
+        status = Status.LOAD_LEVEL;
+    }
+
+    public void refresh() {
+        level = 1;
+        events = new LinkedList<>();
+        mapLoader.loadMap(level);
+        mapLoader.loadObject(objectManager);
+    }
+
+    public void loadMusicOfGame() {
+        if (objectManager.getBomber().getIsLiving()) {
+            Player.playMusic(Player.musicOfGame);
+        }
     }
 }

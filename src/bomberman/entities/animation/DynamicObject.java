@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public abstract class DynamicObject extends GameObject {
     protected Transition transition = Transition.RIGHT;
-    protected int speed = 1;
+    public int speed = 1;
     protected Image[][] images;
     protected boolean isMoving;
     protected int indexOfFrame = 0;
@@ -68,6 +68,7 @@ public abstract class DynamicObject extends GameObject {
     }
 
     public abstract void kill();
+
     /**
      * pt kiểm tra đối tượng có di chuyển qua Wall được không.
      */
@@ -95,7 +96,7 @@ public abstract class DynamicObject extends GameObject {
     /**
      * update toa do moi.
      */
-    public int findCoordinate(int center){
+    protected int findCoordinate(int center){
         return (center + GameScene.SIZE / 2) / GameScene.SIZE * GameScene.SIZE;
     }
 

@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static int countEnemy = 0;
     private char map[][];
     private int height;
     private int width;
@@ -20,10 +19,13 @@ public class MapLoader {
      * @param level level đang chơi
      */
     public void loadMap(int level) {
-
         Scanner scanner = null;
         try {
-            scanner = new Scanner(new File(getClass().getResource("/levels/Level1.txt").getFile()));
+            if (level == 1) {
+                scanner = new Scanner(new File(getClass().getResource("/levels/Level1.txt").getFile()));
+            } else if (level == 2) {
+                scanner = new Scanner(new File(getClass().getResource("/levels/Level2.txt").getFile()));
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -43,6 +45,7 @@ public class MapLoader {
     }
 
     public void loadObject(ObjectManager objectManager) {
+        objectManager.refresh();
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 switch (map[y][x]) {
@@ -80,27 +83,22 @@ public class MapLoader {
                     case '1':
                         objectManager.addObject(new Balloom(x * GameScene.SIZE, y * GameScene.SIZE));
                         objectManager.addObject(new Grass(x, y));
-                        countEnemy += 1;
                         break;
                     case '2':
                         objectManager.addObject(new Oneal(x * GameScene.SIZE, y * GameScene.SIZE));
                         objectManager.addObject(new Grass(x, y));
-                        countEnemy += 1;
                         break;
                     case '3':
                         objectManager.addObject(new Kondoria(x * GameScene.SIZE, y * GameScene.SIZE));
                         objectManager.addObject(new Grass(x, y));
-                        countEnemy += 1;
                         break;
                     case '4':
                         objectManager.addObject(new Doll(x * GameScene.SIZE, y * GameScene.SIZE));
                         objectManager.addObject(new Grass(x, y));
-                        countEnemy += 1;
                         break;
                     case '5':
                         objectManager.addObject(new Minvo(x * GameScene.SIZE, y * GameScene.SIZE));
                         objectManager.addObject(new Grass(x, y));
-                        countEnemy += 1;
                         break;
                     default:
                         objectManager.addObject(new Grass(x,y));

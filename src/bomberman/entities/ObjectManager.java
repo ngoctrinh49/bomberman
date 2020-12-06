@@ -2,6 +2,7 @@ package bomberman.entities;
 
 import bomberman.entities.animation.Bomber;
 import bomberman.entities.animation.DynamicObject;
+import bomberman.entities.animation.enemies.Enemy;
 import bomberman.entities.unmoving.StaticObject;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class ObjectManager {
     private ArrayList<DynamicObject> dynamicObjects = new ArrayList<>();
     private Bomber bomber;
     private ObjectsStack[][] staticObjects;
+    private int numberOfEnemy;
 
     public ArrayList<DynamicObject> getDynamicObjects() {
         return dynamicObjects;
@@ -33,6 +35,8 @@ public class ObjectManager {
             dynamicObjects.add(object1);
             if (object instanceof Bomber) {     //nếu đối tượng được thêm vào là bomber
                 bomber = (Bomber) object;
+            } else if (object instanceof Enemy) {
+                numberOfEnemy++;
             }
         } else {
             StaticObject so = (StaticObject) object;    // đối tượng tĩnh
@@ -95,5 +99,22 @@ public class ObjectManager {
             int y = object1.getY_grid();
             staticObjects[y][x].delete(object1);
         }
+    }
+
+    public void setNumberOfEnemy(int numberOfEnemy) {
+        this.numberOfEnemy = numberOfEnemy;
+    }
+
+    public int getNumberOfEnemy() {
+        return numberOfEnemy;
+    }
+
+    /**
+     * pt load lại đối tượng khi qua màn chơi.
+     */
+    public void refresh() {
+        staticObjects = new ObjectsStack[height][width];
+        dynamicObjects = new ArrayList<>();
+        numberOfEnemy = 0;
     }
 }

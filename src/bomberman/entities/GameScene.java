@@ -1,8 +1,11 @@
 package bomberman.entities;
 
 import bomberman.entities.animation.DynamicObject;
-import bomberman.entities.animation.bomb.ChangeableObject;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
@@ -37,5 +40,16 @@ public class GameScene extends Canvas {
         }
     }
 
+    public void alert(String s) {
+        GraphicsContext graphicsContext = getGraphicsContext2D();
+        graphicsContext.clearRect(0, 0, getWidth(), getHeight());
+        graphicsContext.setTextAlign(TextAlignment.CENTER);
+        graphicsContext.setFill(Color.RED);
+        double sizeOfAlert = getHeight() / 12;
+        double x_alert = getWidth() / 2;
+        double y_alert = getHeight() / 2;
+        graphicsContext.setFont(new Font(sizeOfAlert));
+        graphicsContext.fillText(s, x_alert, y_alert);
+    }
 
 }
