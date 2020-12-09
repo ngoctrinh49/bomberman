@@ -17,7 +17,7 @@ public class Main extends Application {
             private long last = 0 ;
             @Override
             public void handle(long now) {
-                if(now - last >= 40000000) {    //chỉnh tốc độ load game
+                if(now - last >= 16000000) {    //chỉnh tốc độ load game
                     bombermanGame.update();
                     last = now;
                 }

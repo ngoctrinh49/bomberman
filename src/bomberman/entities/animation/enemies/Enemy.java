@@ -5,8 +5,15 @@ import bomberman.entities.GameScene;
 import bomberman.entities.ObjectManager;
 import bomberman.entities.animation.DynamicObject;
 import bomberman.entities.animation.Transition;
+import bomberman.entities.animation.bomb.Bomb;
+import bomberman.entities.animation.bomb.Flame;
 import bomberman.entities.animation.enemies.ai.AI;
+import bomberman.entities.unmoving.Brick;
+import bomberman.entities.unmoving.StaticObject;
+import bomberman.entities.unmoving.Wall;
 import javafx.scene.image.Image;
+
+import java.util.ArrayList;
 
 public abstract class Enemy extends DynamicObject {
     private final int SPEED = 1;
@@ -117,5 +124,26 @@ public abstract class Enemy extends DynamicObject {
         numberOfEnemy--;
         BombermanGame.getInstance().getObjectManager().setNumberOfEnemy(numberOfEnemy);
         isLiving = false;
+    }
+    public boolean checkCanMoveThrough(int x, int y) {
+        ArrayList<StaticObject> staticObjects = manager.getStaticObjectInRec(x, y, width -1, height -1);
+        for (int i = 0; i < staticObjects.size(); i++) {
+            StaticObject object = staticObjects.get(i);
+            if (object instanceof Wall || object instanceof Brick) {
+                return false;
+            }
+            if (object instanceof Bomb) {
+                if (((Bomb) object).isExploded()) {
+                    kill();
+                    return true;
+                }
+                return false;
+            }
+            if (object instanceof Flame) {
+                kill();
+                return true;    //enermy bị giết thì có thể đi qua.
+            }
+        }
+        return true;
     }
 }

@@ -18,6 +18,7 @@ public class BombItem extends Item {
     @Override
     public boolean collide(Bomber bomber) {
         Bomber.maxNumberOfBomb++;
+        Bomber.currentNumberOfBomb++;
         Player.playMusic(Player.eat_item);
         deleteObject();
         return true;

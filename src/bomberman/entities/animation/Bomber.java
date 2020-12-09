@@ -109,8 +109,8 @@ public class Bomber extends DynamicObject {
     }
 
     public void kill() {
-        isLiving = false;
-        Player.playMusic(Player.bomber_died);
+//        isLiving = false;
+//        Player.playMusic(Player.bomber_died);
     }
 
     /**
@@ -132,9 +132,10 @@ public class Bomber extends DynamicObject {
     public void placeBomb(int x, int y) {
         if (Bomber.currentNumberOfBomb > 0 && Bomber.currentNumberOfBomb <= Bomber.maxNumberOfBomb) {
             new Bomb((x + width / 2) / GameScene.SIZE, (y + height / 2) / GameScene.SIZE, levelOfBomb);
-            Bomber.currentNumberOfBomb++;
+            Bomber.currentNumberOfBomb--;
             Player.playMusic(Player.make_bomb);
         }
+        System.out.println("current:" + currentNumberOfBomb + "\n" + "max:" + maxNumberOfBomb + "\n");
     }
 
     /**

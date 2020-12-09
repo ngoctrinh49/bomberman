@@ -17,7 +17,7 @@ public class Bomb extends ChangeableObject {
     public Bomb(int x, int y, int level) {
         super(x, y);
         this.level = level;
-        timeToExploded =(System.currentTimeMillis() + TIME);
+        timeToExploded =System.currentTimeMillis() + TIME;
         images = new Image[2][3];
         images[0][0] = getFxImage("/sprites/bomb.png");
         images[0][1] = getFxImage("/sprites/bomb_1.png");
@@ -28,6 +28,10 @@ public class Bomb extends ChangeableObject {
         BombermanGame.getInstance().getObjectManager().addObject(this);
     }
 
+    public void bum(){
+        timeToExploded = System.currentTimeMillis();
+        render();
+    }
     @Override
     public void render() {
         indexOfFrame++;
@@ -35,7 +39,7 @@ public class Bomb extends ChangeableObject {
             isExploded = true;
             indexOfFrame = 0;
             explode();
-            Bomber.currentNumberOfBomb--;
+            Bomber.currentNumberOfBomb++;
         }
         if (isExploded) {
             Player.playMusic(Player.bombExplode);
@@ -51,7 +55,6 @@ public class Bomb extends ChangeableObject {
     }
 
     public void explode() {
-        System.out.println("current:" + Bomber.currentNumberOfBomb + "\n" + "max:" + Bomber.maxNumberOfBomb + "\n");
         ObjectManager manager = BombermanGame.getInstance().getObjectManager();
         for (int i = x_grid + 1; i <= x_grid + level; i++){
             if(manager.getChangeableObject(i, y_grid) instanceof Wall) {
