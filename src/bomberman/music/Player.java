@@ -5,14 +5,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class Player {
-    public static String moveOfBomber = "res/music/foot_short.wav";
+    public static String moveOfBomber = "res/music/foot_short1.wav";
     public static String bombExplode = "res/music/bomb_explode.wav";
     public static String eat_item = "res/music/eat_item.wav";
     public static String load_level = "res/music/next_level.wav";
     public static String bomber_died = "res/music/died.wav";
     public static String make_bomb = "res/music/make_bomb.wav";
     public static String dead_of_enemy = "res/music/deathOfEnemy.wav" ;
-    public static String musicOfGame = "res/music/nhac_nen.wav";
+    public static String musicOfGame = "res/music/nhac_nen1.wav";
 
     public static void playMusic(String path) {
         try {

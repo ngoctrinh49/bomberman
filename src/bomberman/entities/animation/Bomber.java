@@ -87,7 +87,6 @@ public class Bomber extends DynamicObject {
                 break;
             case SPACE:
                 placeBomb(x, y);
-                Player.playMusic(Player.moveOfBomber);
                 break;
         }
     }
