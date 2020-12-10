@@ -40,7 +40,6 @@ public class ObjectManager {
             }
         } else {
             StaticObject so = (StaticObject) object;    // đối tượng tĩnh
-            //staticObjects[so.getY_grid()][so.getX_grid()] = so;
             int x = so.getX_grid();
             int y = so.getY_grid();
             if (staticObjects[y][x] == null) {

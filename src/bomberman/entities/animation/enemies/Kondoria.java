@@ -6,9 +6,7 @@ import bomberman.entities.animation.Transition;
 import bomberman.entities.animation.bomb.Bomb;
 import bomberman.entities.animation.bomb.Flame;
 import bomberman.entities.animation.enemies.ai.MediumAI;
-import bomberman.entities.unmoving.Brick;
 import bomberman.entities.unmoving.StaticObject;
-import bomberman.entities.unmoving.Wall;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;

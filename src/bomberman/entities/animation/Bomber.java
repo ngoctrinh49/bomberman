@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import bomberman.entities.animation.enemies.Enemy;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -108,8 +107,8 @@ public class Bomber extends DynamicObject {
     }
 
     public void kill() {
-//        isLiving = false;
-//        Player.playMusic(Player.bomber_died);
+        isLiving = false;
+        Player.playMusic(Player.bomber_died);
     }
 
     /**
@@ -149,10 +148,6 @@ public class Bomber extends DynamicObject {
             }
         }
         return super.checkCanMoveThrough(x, y);
-    }
-
-    public int getCurrentNumberOfBomb() {
-        return currentNumberOfBomb;
     }
 
     public boolean getIsLiving() {
