@@ -31,6 +31,4 @@ public class Portal extends Item {
         }
         return false;
     }
-
-
 }

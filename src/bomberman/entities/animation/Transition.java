@@ -15,7 +15,6 @@ public enum Transition {
         return direction;
     }
 
-    //public String findCurrentDirection() {
     public String toString() {
         switch (direction) {
             case 0:

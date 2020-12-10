@@ -4,7 +4,6 @@ import bomberman.BombermanGame;
 import bomberman.entities.animation.Bomber;
 import bomberman.entities.animation.enemies.*;
 import bomberman.entities.unmoving.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;

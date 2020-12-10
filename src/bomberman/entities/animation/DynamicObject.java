@@ -10,7 +10,6 @@ import bomberman.entities.unmoving.Brick;
 import bomberman.entities.unmoving.StaticObject;
 import bomberman.entities.unmoving.Wall;
 import javafx.scene.image.Image;
-
 import java.util.ArrayList;
 
 public abstract class DynamicObject extends GameObject {
@@ -81,7 +80,7 @@ public abstract class DynamicObject extends GameObject {
             }
             if (object instanceof Flame) {
                 kill();
-                return true;    //enermy bị giết thì có thể đi qua.
+                return true;
             }
             if (object instanceof Bomb) {   //nếu bomber đứng chính giữa bom nổ
                 if (((Bomb) object).isExploded()) {

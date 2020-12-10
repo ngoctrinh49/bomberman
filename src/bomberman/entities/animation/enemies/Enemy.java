@@ -2,7 +2,6 @@ package bomberman.entities.animation.enemies;
 
 import bomberman.BombermanGame;
 import bomberman.entities.GameScene;
-import bomberman.entities.ObjectManager;
 import bomberman.entities.animation.DynamicObject;
 import bomberman.entities.animation.Transition;
 import bomberman.entities.animation.bomb.Bomb;
@@ -12,7 +11,6 @@ import bomberman.entities.unmoving.Brick;
 import bomberman.entities.unmoving.StaticObject;
 import bomberman.entities.unmoving.Wall;
 import javafx.scene.image.Image;
-
 import java.util.ArrayList;
 
 public abstract class Enemy extends DynamicObject {
@@ -141,7 +139,7 @@ public abstract class Enemy extends DynamicObject {
             }
             if (object instanceof Flame) {
                 kill();
-                return true;    //enermy bị giết thì có thể đi qua.
+                return true;
             }
         }
         return true;

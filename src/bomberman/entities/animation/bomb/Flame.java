@@ -2,9 +2,8 @@ package bomberman.entities.animation.bomb;
 
 import bomberman.BombermanGame;
 import bomberman.entities.ObjectManager;
-import bomberman.entities.animation.Bomber;
 import bomberman.entities.unmoving.Brick;
-import bomberman.entities.unmoving.Grass;
+import bomberman.entities.unmoving.Item;
 import javafx.scene.image.Image;
 
 public class Flame extends ChangeableObject {
@@ -45,6 +44,8 @@ public class Flame extends ChangeableObject {
             manager.removeChangeableObject(x_grid, y_grid);
         } else if (manager.getChangeableObject(x_grid, y_grid) instanceof Bomb) {
             ((Bomb) manager.getChangeableObject(x_grid, y_grid)).bum();
+        } else if (manager.getChangeableObject(x_grid, y_grid) instanceof Item) {
+            manager.removeChangeableObject(x_grid, y_grid);
         }
         manager.addObject(this);
     }
