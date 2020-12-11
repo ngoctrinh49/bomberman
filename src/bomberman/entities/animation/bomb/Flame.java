@@ -56,10 +56,11 @@ public class Flame extends ChangeableObject {
 
     @Override
     public void render() {
-        if (indexOfFrame >= 3) {
+        if (indexOfFrame >= 5) {
+            graphicsContext.drawImage(imageOfLevel[indexOfFrame%6/2], x, y, width, height);
             BombermanGame.getInstance().getObjectManager().deleteObject(this);  //xoa flame
         } else {
-            graphicsContext.drawImage(imageOfLevel[indexOfFrame], x, y, width, height);
+            graphicsContext.drawImage(imageOfLevel[indexOfFrame%6/2], x, y, width, height);
             indexOfFrame++;
         }
     }

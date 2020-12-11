@@ -23,7 +23,7 @@ public class Bomber extends DynamicObject {
         transition = Transition.RIGHT;
         images = new Image[4][];
         isMoving = false;
-        speed = 5;
+        speed = 4;
         for (Transition t : Transition.values()) {
             Image[] images1 = new Image[3];
             findTransition(images1, t);
@@ -89,7 +89,6 @@ public class Bomber extends DynamicObject {
                 break;
         }
     }
-
     @Override
     public void update() {
         KeyEvent event = BombermanGame.getInstance().getEvents().poll();

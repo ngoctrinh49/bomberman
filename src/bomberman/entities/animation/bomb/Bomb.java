@@ -45,11 +45,11 @@ public class Bomb extends ChangeableObject {
             Player.playMusic(Player.bombExplode);
         }
         if (isExploded) {
-            graphicsContext.drawImage(images[1][(indexOfFrame % 12) / 4], x, y, width, height);
+            graphicsContext.drawImage(images[1][(indexOfFrame % 6) / 2], x, y, width, height);
         } else {
-            graphicsContext.drawImage(images[0][(indexOfFrame % 12) / 4], x, y, width, height);
+            graphicsContext.drawImage(images[0][(indexOfFrame % 6) / 2], x, y, width, height);
         }
-        if (isExploded && indexOfFrame >= 4) {
+        if (isExploded && indexOfFrame >=6) {
             BombermanGame.getInstance().getObjectManager().deleteObject(this);  // xóa hình ảnh nổ trung tâm
         }
     }
